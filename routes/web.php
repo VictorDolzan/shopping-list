@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +23,6 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/signin', [AuthController::class, 'signin']);
 Route::get('/register',[AuthController::class, 'register']);
 Route::post('/signup', [AuthController::class, 'signup']);
-Route::get('logout', [AuthController::class, 'logout']);
-Route::get('/dashboard', [AuthController::class, 'dashboard']);
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/dashboard', [ItemController::class, 'index'])->middleware('auth');
+Route::post('shopping/store', [ItemController::class, 'store'])->middleware('auth');
